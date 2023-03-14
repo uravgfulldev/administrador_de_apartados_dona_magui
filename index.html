@@ -17,29 +17,44 @@
     <link rel="stylesheet" href="assets/css/jquery.fancybox.min.css">
     <!-- custom css  -->
     <link rel="stylesheet" href="style.css">
+
+
 </head>
-<body class="body-fixed">
-    
-    <header class="header">
+<body>
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-2">
+            <!-- Header/logo/navbar -->
+          <div class="col-md-3 col-lg-2 col-xl-2">
+            <header class="header">
                 <div class="header-logo">
-                    <a href="index.html">
-                        <img src="assets/images/logo.jpg" alt="logo" width="150" height="150">
-                    </a>
-                </div>
-                <div class="header-menu">
-                    <nav class="nav flex-column">
-                        <ul class="menu">
-                            <li><a href="">Menu</a></li> 
-                            <li><a href="">Pedidos</a></li>
-                        </ul>
-                    </nav>
+                    <div class="img-logo">
+                        <a href="index.html">
+                            <img class="rounded-circle img-fluid" src="assets/images/logo.jpg" alt="logo">
+                        </a>
+                    </div>
                     
                 </div>
-            </div>
+                <div class="header-menu align-items-center">
+                   <ul class="nav nav-pills flex-column">
+                        <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Menu</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">Apartados</a></li>
+                        <li class="nav-item"><button class="btn btn-primary">Cerrar Session</button></li>
+                   </ul>
+                    
+                </div>   
+               
+                
+                   
+            </header>
+            
+          </div>
+          <!-- Contenido -->
+          <div class="contenido col-md-9 col-lg-10 col-xl-10">
+            <h1>Contendio de la pagina</h1>
+          </div>
+
         </div>
-        
-    </header>
+      </div>
+            
 </body>
 </html>

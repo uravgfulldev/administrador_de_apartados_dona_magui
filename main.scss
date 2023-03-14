@@ -1,0 +1,68 @@
+$theme-colors:(
+    "primary": #fcca5d,
+    "secondary": rgb(100, 100, 100)
+    
+);
+@import "node_modules/bootstrap/scss/bootstrap";
+html{
+    min-height: 100%;
+    position: relative;
+}
+body{
+    margin:0;
+    height: 100vh;
+    background-color: #fcca5d;
+}
+h1, h2{
+    color: #fff;
+}
+p{
+   margin: 0;
+}
+.header{
+    height: 100vh;
+    background-color: rgb(133, 133, 133);
+}
+.header-logo{
+    padding: 15px 15px 15px 15px;
+    height: 25vh;  
+}
+
+.img-logo{
+    max-width: 90%;
+    height: auto;
+}
+.header-menu{
+    height: 75vh;
+}
+
+.nav{
+    padding-top: 20px;
+}
+.nav-link{
+    color: white;
+    border-radius: 0;
+    font-size: 20px;
+    text-align: center;
+}
+.btn-login-register{
+    margin-top: 280px;
+    margin-left: 35px;
+    vertical-align: bottom;
+    font-size:18px;
+}
+.btn-primary{
+    background-color: rgb(100, 100, 100);
+    border-color: rgb(100, 100, 100);
+    color: #fff;
+}
+.container-fluid{
+    padding-left: 0;
+    padding-right:0;
+} 
+
+.slider{
+    background-color: #ffdc8f;
+    height: 450px;
+}
+

@@ -10466,6 +10466,10 @@ p {
   text-align: center;
 }
 
+.text_center {
+  width: 100%;
+}
+
 .btn-login-register {
   margin-top: 280px;
   margin-left: 35px;
@@ -10479,12 +10483,34 @@ p {
   color: #fff;
 }
 
+.btn-success {
+  background-color: #7ED957;
+  color: #fff;
+  font-size: 14px;
+  font-style: bold;
+  width: 100px;
+  height: 30px;
+  padding: 5px;
+}
+
 .container-fluid, .container-sm, .container-md, .container-lg, .container-xl, .container-xxl {
   padding-left: 0;
   padding-right: 0;
 }
 
+.contenido {
+  width: 83%;
+}
+
 .slider {
   background-color: #ffdc8f;
-  height: 450px;
+  margin-top: 30px;
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  height: 420px;
+}
+
+.space {
+  height: 10vh;
 }/*# sourceMappingURL=main.css.map */

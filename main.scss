@@ -45,6 +45,10 @@ p{
     font-size: 20px;
     text-align: center;
 }
+
+.text_center{
+    width: 100%;
+}
 .btn-login-register{
     margin-top: 280px;
     margin-left: 35px;
@@ -56,13 +60,36 @@ p{
     border-color: rgb(100, 100, 100);
     color: #fff;
 }
+.btn-success{
+    background-color:#7ED957;
+    color: #fff;
+    font-size: 14px;
+    font-style: bold;
+    width: 100px;
+    height: 30px;
+    padding: 5px;
+}
 .container-fluid{
     padding-left: 0;
     padding-right:0;
 } 
+.contenido{
+    width: 83%;
+}
 
 .slider{
     background-color: #ffdc8f;
-    height: 450px;
+    margin-top:30px;
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    height: 420px;
+
 }
+
+.space{
+    height:10vh;
+}
+
+
 

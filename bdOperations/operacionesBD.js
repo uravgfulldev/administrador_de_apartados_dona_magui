@@ -1,4 +1,7 @@
-var xhtml;
+var xhttp;
+var usuario;
+var comida;
+var platillo;
 
 function registrarApartado() {
     //TODO: obtener los datos necesarios para realizar el apartado

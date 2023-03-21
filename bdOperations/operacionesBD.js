@@ -217,7 +217,7 @@ function registrarApartado() {
     var idCliente = usuario.getUserName();
 
     xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "php\\insertData.php", true);
+    xhttp.open("POST", "bdOperations\\php\\insertData.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("id_platillo=" + idPlatillo + "&id_cliente=" + idCliente);
 

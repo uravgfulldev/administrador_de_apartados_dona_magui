@@ -53,7 +53,7 @@ if (isset($_POST['id_platillo']) && isset($_POST['id_cliente'])) {
     $idCliente = $_POST['id_cliente'];
     $estado = "Pendiente";
 
-    $sql = "INSERT INTO `apartados_dona_magui`.`apartados` (`id_apartado`, `id_platillo`, `id_cliente`, `estado`) VALUES (<{id_apartado: }> <{id_platillo: }>, <{id_cliente: }>, <{estado: }>);";
+    $sql = "INSERT INTO `apartados_dona_magui`.`apartados` (`id_platillo`, `id_cliente`, `estado`) VALUES ('$idPlatillo', '$idCliente', '$estado');";
     $result = mysqli_query($conn, $sql);
 
     if ($result == true) {

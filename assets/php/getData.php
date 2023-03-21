@@ -2,11 +2,11 @@
 
 $conn = mysqli_connect("localhost", "root", "Luisgon10$", "apartados_dona_magui");
 
-if (true) {
+if (isset($_GET['id_usuario'])) {
     //do something
 } else {
-    $sql = "";
-    $result = mysqli_query($conn, $result);
+    $sql = "SELECT `apartados`.`id_apartado`, `apartados`.`id_platillo`, `apartados`.`id_cliente`, `apartados`.`estado` FROM `apartados_dona_magui`.`apartados`; ";
+    $result = mysqli_query($conn, $sql);
 
     $data = array();
 

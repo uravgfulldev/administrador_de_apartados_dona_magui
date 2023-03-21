@@ -208,8 +208,8 @@ class Apartado {
 
 var xhttp;
 var usuario = new User("LGCR", "Luis Gonzalo Cervantes Rivera", "luis.cervantes228549@potros.itson.edu.mx", "LGCR1234");
-var comida = new Comida(1, "Carne en su jugo", "assets\\images\\Comidas\\carneEnSuJugo.jpg", "Lunes", 1, "Carne en su jugo", 75.0);
-var platillo = new Platillo(1, comida, "2023-03-20 16:00:00", true);
+var comida = new Comida(2, "Carne en su jugo", "assets\\images\\Comidas\\carneEnSuJugo.jpg", "Lunes", 1, "Carne en su jugo", 75.0);
+var platillo = new Platillo(2, comida, "2023-03-20 16:00:00", true);
 
 function registrarApartado() {
     //TODO: obtener los datos necesarios para realizar el apartado
@@ -217,7 +217,7 @@ function registrarApartado() {
     var idCliente = usuario.getUserName();
 
     xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "assets\\php\\insertData.php", true);
+    xhttp.open("POST", "php\\insertData.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("id_platillo=" + idPlatillo + "&id_cliente=" + idCliente);
 
@@ -229,17 +229,19 @@ function registrarApartado() {
 }
 
 function cancelarApartado() {
-    var idApartado = document.getElementById("").value;
+    var nombreCliente = "Luis Gonzalo Cervantes Rivera"; //document.getElementById("").value;
+    var nombreComida = "Carne en su jugo"; //document.getElementById("").value;
     var estado = "Cancelado";
 
     xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "assets\\php\\editData.php", true);
+    xhttp.open("POST", "bdOperations\\php\\editData.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send("id_apartado=" + idApartado + "&estado=" + estado);
+    xhttp.send("nombre_cliente=" + nombreCliente + "&nombre_comida=" + nombreComida + "&estado=" + estado);
 
     xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
             alert(this.responseText);
+            //TODO: editar celda de estado
         }
     }
 }
@@ -249,24 +251,26 @@ function filtrarApartados() {
 }
 
 function entregarApartado() {
-    var idApartado = document.getElementById("").value;
+    var nombreCliente = "Luis Gonzalo Cervantes Rivera"; //document.getElementById("").value;
+    var nombreComida = "Carne en su jugo"; //document.getElementById("").value;
     var estado = "Entregado";
 
     xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "assets\\php\\editData.php", true);
+    xhttp.open("POST", "bdOperations\\php\\editData.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send("id_apartado=" + idApartado + "&estado=" + estado);
+    xhttp.send("nombre_cliente=" + nombreCliente + "&nombre_comida=" + nombreComida + "&estado=" + estado);
 
     xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
             alert(this.responseText);
+            //TODO: editar celda de estado
         }
     }
 }
 
 function obtenerApartados() {
     xhttp = new XMLHttpRequest();
-    xhttp.open("GET", "assets\\php\\getData.php", true)
+    xhttp.open("GET", "bdOperations\\php\\getData.php", true)
     xhttp.send();
 
     xhttp.onreadystatechange = function() {

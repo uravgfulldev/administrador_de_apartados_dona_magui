@@ -8,26 +8,35 @@ if (isset($_POST['nombre_comida']) && isset($_POST['hora']) && isset($_POST['par
     $paraLlevar = $_POST['para_llevar'];
     $idUsuario = $_POST['id_usuario'];
 
-    $sql = "SELECT `comidas`.`id_comida` FROM `apartados_dona_magui`.`comidas`; WHERE `comidas`.`nombre`;";
+    $sql = "SELECT `comidas`.`id_comida`, `comidas`.`stock` FROM `apartados_dona_magui`.`comidas`; WHERE `comidas`.`nombre`;";
     $result = mysqli_query($conn, $result);
 
-    $idComida = mysqli_fetch_column($result);
+    $idComida = mysqli_fetch_column($result, 0);
+    $stock = mysqli_fetch_column($result, 1);
 
-    $sql2 = "INSERT INTO `apartados_dona_magui`.`platillos` (`id_comida`, `hora`, `para_llevar`) VALUES ('$idComida', '$hora', '$paraLlevar');";
+    $stock -= 1;
+    $sql2 = "UPDATE `apartados_dona_magui`.`comidas` SET `stock` = '$stock' WHERE `id_comida` = '$idComida';";
     $result2 = mysqli_query($conn, $sql2);
 
-    if ($result2 == true) {
-        $sql3 = "SELECT `p`.`id_platillo`
-        FROM `apartados_dona_magui`.`platillos` as p 
-        WHERE `p`.`id_comida` = '$idComida' AND `p`.`hora` = '$hora' AND `p`.`para_llevar` = '$paraLlevar';";
-    
+    if ($result2 == false) {
+        $sql3 = "INSERT INTO `apartados_dona_magui`.`platillos` (`id_comida`, `hora`, `para_llevar`) VALUES ('$idComida', '$hora', '$paraLlevar');";
         $result3 = mysqli_query($conn, $sql3);
 
-        $idPlatillo = mysqli_fetch_column($result3);
+        if ($result3 == true) {
+            $sql4 = "SELECT `p`.`id_platillo`
+            FROM `apartados_dona_magui`.`platillos` as p 
+            WHERE `p`.`id_comida` = '$idComida' AND `p`.`hora` = '$hora' AND `p`.`para_llevar` = '$paraLlevar';";
+    
+            $result4 = mysqli_query($conn, $sql4);
 
-        echo $idPlatillo;
+            $idPlatillo = mysqli_fetch_column($result4);
+
+            echo $idPlatillo;
+        } else {
+            echo "Ha ocurrido un error!!!";
+        }
     } else {
-        echo "Ha ocurrido un error!!!";
+        echo "Ha ocurrido un error!!";
     }
 }
 

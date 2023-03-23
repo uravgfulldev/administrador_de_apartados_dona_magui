@@ -5,17 +5,36 @@ var usuario = new User("LGCR", "Luis Gonzalo Cervantes Rivera", "luis.cervantes2
 //var comida; = new Comida(2, "Carne en su jugo", "assets\\images\\Comidas\\carneEnSuJugo.jpg", "Lunes", 1, "Carne en su jugo", 75.0, 19);
 //var platillo; = new Platillo(2, comida, "2023-03-20 16:00:00", true);
 
+/**
+ * Función que se encarga de registrar el apartado del cliente en la base
+ * de datos.
+ * 
+ * @param {string} nombreComida nombre de la comida a apartar
+ * @param {number} hora hora en la que se planea recoger
+ * @param {boolean} paraLlevar Si la comida será para llevar o no
+ */
 export function registrarApartado(nombreComida, hora, paraLlevar) {
+    //primero verificamos si la comida todavía se encuentra disponible
     if (!verificarDisponibilidad(nombreComida)) {
+        //en el caso de que no esté disponible se le muestra una alerta al
+        //usuario indicandole eso
         alert(nombreComida + "ya no se encuentra disponible");
         return;
     }
 
+    //Obtenemos la fecha del día de hoy y la escribimos al formato yyyy-mm-dd
+    //para que sea compatible con mysql, después le agregamos la hora para tener
+    //tanto el día como la hora. Más adelante será modificado para obtener la fecha
+    //del día en que la comida aparece en el menú
     var hoy = formatoFecha(new Date(), 'yyyy-mm-dd');
     var hoyHora = hoy + " " + hora + ":00:00";
 
+    //Primero registramos el platillo en la base de datos para poder relacionarlo
+    //con el cliente
     var idPlatillo = registrarPlatillo(nombreComida, hoyHora, paraLlevar);
 
+    //Realizamos el request para enviar los datos al archivo insertData.php el cual
+    //se encargará de registrar el apartado en la base de datos
     xhttp = new XMLHttpRequest();
     xhttp.open("POST", "bdOperations\\php\\insertData.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -23,45 +42,11 @@ export function registrarApartado(nombreComida, hora, paraLlevar) {
 
     xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
+            //Si se logró realizar el request se le mostrará un mensaje al usuario
+            //con el mensaje que el archivo php envió
             alert(this.responseText);
         }
     }
-}
-
-function verificarDisponibilidad(nombreComida) {
-    xhttp = new XMLHttpRequest();
-    xhttp.open("GET", "bdOperations\\php\\getData.php", true);
-    xhttp.send("nombre_comida=" + nombreComida);
-
-    var stock = xhttp.onreadystatechange = function() {
-        if (this.readyState === 4 && this.status === 200) {
-            console.log(this.responseText);
-            return this.responseText != 0;
-        }
-    }
-
-    return stock;
-}
-
-function registrarPlatillo(nombreComida, hora, paraLlevar) {
-    xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "bdOperations\\php\\insertData.php", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send("nombre_comida=" + nombreComida + "&hora=" + hora + "&para_llevar=" + paraLlevar);
-
-    var idComida = xhttp.onreadystatechange = function() {
-        if (this.readyState === 4 && this.status === 200) {
-            console.log(this.responseText);
-
-            if (this.responseText == "Ha ocurrido un error!!!") {
-                alert(this.responseText);
-            } else {
-                return parseInt(this.responseText);
-            }
-        }
-    }
-
-    return idComida
 }
 
 export function cancelarApartado() {
@@ -138,4 +123,66 @@ function formatoFecha(fecha, formato) {
     }
 
     return formato.replace(/dd|mm|yyyy/gi, matched => map[matched]);
+}
+
+/**
+ * Verifica la disponibilidad de una comida del menú.
+ * 
+ * @param {string} nombreComida nombre de la comida a verificar
+ * @returns el total disponible del stock de la comida
+ */
+function verificarDisponibilidad(nombreComida) {
+    //Creamos un request con el método GET para el archivo getData.php
+    //el cual obtendrá el stock de la comida a buscar que está en la base
+    //de datos
+    xhttp = new XMLHttpRequest();
+    xhttp.open("GET", "bdOperations\\php\\getData.php", true);
+    xhttp.send("nombre_comida=" + nombreComida);
+
+    //testing pendiente para ver si es de esta forma que funciona el return
+    //con onreadystatechange xd
+    var stock = xhttp.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
+            //enviamos el response a la consola para hacer tests
+            console.log(this.responseText);
+            return this.responseText != 0;
+        }
+    }
+
+    return stock;
+}
+
+/**
+ * Registra el platillo en la base de datos.
+ * 
+ * @param {string} nombreComida nombre de la comida a apartar
+ * @param {string} hora hora en la que será recogida
+ * @param {boolean} paraLlevar si es para llevar o no
+ * @returns el id del platillo que se acaba de registrar en la base de datos
+ */
+function registrarPlatillo(nombreComida, hora, paraLlevar) {
+    //Creamos un request con el método POST para el archivo insertData.php
+    //el cual instertará en la base de datos
+    xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "bdOperations\\php\\insertData.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("nombre_comida=" + nombreComida + "&hora=" + hora + "&para_llevar=" + paraLlevar);
+
+    //testing pendiente para ver si es de esta forma que funciona el return
+    //con onreadystatechange xd
+    var idPlatillo = xhttp.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
+            console.log(this.responseText);
+
+            //Si el response text es un mensaje de error se le hace saber al usuario
+            //en caso contrario se regresa el id del platillo registrado
+            if (this.responseText == "Ha ocurrido un error!!!") {
+                alert(this.responseText);
+            } else {
+                return parseInt(this.responseText);
+            }
+        }
+    }
+
+    return idPlatillo
 }

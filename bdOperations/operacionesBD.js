@@ -1,225 +1,25 @@
-class User {
-
-    #userName;
-    #nombreCompleto;
-    #correo;
-    #password;
-
-    constructor(userName, nombreCompleto, correo, password) {
-        this.#userName = userName;
-        this.#nombreCompleto = nombreCompleto;
-        this.#correo = correo;
-        this.#password = password;
-    }
-
-    getUserName() {
-        return this.#userName;
-    }
-
-    setUserName(userName) {
-        this.#userName = userName;
-    }
-
-    getNombreCompleto() {
-        return this.#nombreCompleto;
-    }
-
-    setNombreCompleto(nombreCompleto) {
-        this.#nombreCompleto = nombreCompleto;
-    }
-
-    getCorreo() {
-        return this.#correo;
-    }
-
-    setCorreo(correo) {
-        this.#correo = correo;
-    }
-
-    getPassword() {
-        return this.#password;
-    }
-
-    setPassword(password) {
-        this.#password = password;
-    }
-}
-
-class Comida {
-
-    #id;
-    #nombre;
-    #img;
-    #dia;
-    #menu;
-    #precio;
-
-    constructor(id, nombre, img, dia, menu, precio) {
-        this.#id = id;
-        this.#nombre = nombre;
-        this.#img = img;
-        this.#dia = dia;
-        this.#menu = menu;
-        this.#precio = precio;
-    }
-
-    getId() {
-        return this.#id;
-    }
-
-    setId(id) {
-        this.#id = id;
-    }
-
-    getNombre() {
-        return this.#nombre;
-    }
-
-    setNombre(nombre) {
-        this.#nombre = nombre;
-    }
-
-    getImg() {
-        return this.#img;
-    }
-
-    setImg(img) {
-        this.#img = img;
-    }
-
-    getDia() {
-        return this.#dia;
-    }
-
-    setDia(dia) {
-        this.#dia = dia;
-    }
-
-    getMenu() {
-        return this.#menu;
-    }
-
-    setMenu(menu) {
-        this.#menu = menu;
-    }
-
-    getPrecio() {
-        return this.#precio;
-    }
-
-    setPrecio() {
-        this.#precio = precio;
-    }
-}
-
-class Platillo {
-
-    #id
-    #comida;
-    #hora;
-    #paraLlevar;
-
-    constructor(id, comida, hora, paraLlevar) {
-        this.#id = id;
-        this.comida = comida;
-        this.hora = hora;
-        this.paraLlevar = paraLlevar;
-    }
-
-    getId() {
-        return this.#id;
-    }
-
-    setId(id) {
-        this.#id = id;
-    }
-
-    getComida() {
-        return this.#comida;
-    }
-
-    setComida(comida) {
-        this.#comida = comida;
-    }
-
-    getHora() {
-        return this.#hora;
-    }
-
-    setHora(hora) {
-        this.#hora = hora;
-    }
-
-    isParaLlevar() {
-        return this.#paraLlevar;
-    }
-
-    setParaLlevar(paraLlevar) {
-        this.#paraLlevar = paraLlevar;
-    }
-}
-
-class Apartado {
-
-    #id
-    #user;
-    #platillo;
-    #estatus;
-
-    constructor(id, user, platillo, estatus) {
-        this.#id = id;
-        this.#user = user;
-        this.#platillo = platillo;
-        this.#estatus = estatus;
-    }
-
-    getId() {
-        return this.#id;
-    }
-
-    setId(id) {
-        this.#id = id;
-    }
-
-    getUser() {
-        return this.#user;
-    }
-
-    setUser(user) {
-        this.#user = user;
-    }
-
-    getPlatillo() {
-        return this.#platillo;
-    }
-
-    setPlatillo(platillo) {
-        this.#platillo = platillo;
-    }
-
-    getEstatus() {
-        return this.#estatus;
-    }
-
-    setEstatus(estatus) {
-        this.#estatus = estatus;
-    }
-}
+import { User, Comida, Platillo, Apartado } from "./objetosDominio.js";
 
 var xhttp;
 var usuario = new User("LGCR", "Luis Gonzalo Cervantes Rivera", "luis.cervantes228549@potros.itson.edu.mx", "LGCR1234");
-var comida = new Comida(2, "Carne en su jugo", "assets\\images\\Comidas\\carneEnSuJugo.jpg", "Lunes", 1, "Carne en su jugo", 75.0);
-var platillo = new Platillo(2, comida, "2023-03-20 16:00:00", true);
+//var comida; = new Comida(2, "Carne en su jugo", "assets\\images\\Comidas\\carneEnSuJugo.jpg", "Lunes", 1, "Carne en su jugo", 75.0, 19);
+//var platillo; = new Platillo(2, comida, "2023-03-20 16:00:00", true);
 
-function registrarApartado() {
-    //TODO: obtener los datos necesarios para realizar el apartado
-    var idPlatillo = platillo.getId();
-    var idCliente = usuario.getUserName();
+export function registrarApartado(nombreComida, hora, paraLlevar) {
+    if (!verificarDisponibilidad(nombreComida)) {
+        alert(nombreComida + "ya no se encuentra disponible");
+        return;
+    }
+
+    var hoy = formatoFecha(new Date(), 'yyyy-mm-dd');
+    var hoyHora = hoy + " " + hora + ":00:00";
+
+    var idPlatillo = registrarPlatillo(nombreComida, hoyHora, paraLlevar);
 
     xhttp = new XMLHttpRequest();
     xhttp.open("POST", "bdOperations\\php\\insertData.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send("id_platillo=" + idPlatillo + "&id_cliente=" + idCliente);
+    xhttp.send("id_platillo=" + idPlatillo + "&id_usuario=" + usuario.getUserName());
 
     xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
@@ -228,9 +28,45 @@ function registrarApartado() {
     }
 }
 
-function cancelarApartado() {
-    var nombreCliente = "Luis Gonzalo Cervantes Rivera"; //document.getElementById("").value;
-    var nombreComida = "Carne en su jugo"; //document.getElementById("").value;
+function verificarDisponibilidad(nombreComida) {
+    xhttp = new XMLHttpRequest();
+    xhttp.open("GET", "bdOperations\\php\\getData.php", true);
+    xhttp.send("nombre_comida=" + nombreComida);
+
+    var stock = xhttp.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
+            console.log(this.responseText);
+            return this.responseText != 0;
+        }
+    }
+
+    return stock;
+}
+
+function registrarPlatillo(nombreComida, hora, paraLlevar) {
+    xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "bdOperations\\php\\insertData.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("nombre_comida=" + nombreComida + "&hora=" + hora + "&para_llevar=" + paraLlevar);
+
+    var idComida = xhttp.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
+            console.log(this.responseText);
+
+            if (this.responseText == "Ha ocurrido un error!!!") {
+                alert(this.responseText);
+            } else {
+                return parseInt(this.responseText);
+            }
+        }
+    }
+
+    return idComida
+}
+
+export function cancelarApartado() {
+    var nombreCliente = "Luis Gonzalo Cervantes Rivera";
+    var nombreComida = "Carne en su jugo";
     var estado = "Cancelado";
 
     xhttp = new XMLHttpRequest();
@@ -246,11 +82,11 @@ function cancelarApartado() {
     }
 }
 
-function filtrarApartados() {
+export function filtrarApartados() {
     //TODO: everything
 }
 
-function entregarApartado() {
+export function entregarApartado() {
     var nombreCliente = "Luis Gonzalo Cervantes Rivera"; //document.getElementById("").value;
     var nombreComida = "Carne en su jugo"; //document.getElementById("").value;
     var estado = "Entregado";
@@ -268,7 +104,11 @@ function entregarApartado() {
     }
 }
 
-function obtenerApartados() {
+export function obtenerApartados() {
+    const hoy = new Date();
+    var hoyFormato = formatoFecha(hoy, 'yyyy-mm-dd');
+    console.log(hoyFormato);
+
     xhttp = new XMLHttpRequest();
     xhttp.open("GET", "bdOperations\\php\\getData.php", true)
     xhttp.send();
@@ -288,4 +128,14 @@ function obtenerApartados() {
             document.getElementById("").innerHTML = columnasTabla;
         }
     }
+}
+
+function formatoFecha(fecha, formato) {
+    const map = {
+        dd: fecha.getDate(),
+        mm: fecha.getMonth() + 1,
+        yyyy: fecha.getFullYear()
+    }
+
+    return formato.replace(/dd|mm|yyyy/gi, matched => map[matched]);
 }

@@ -20,7 +20,7 @@ if (isset($_POST['nombre_cliente']) && isset($_POST['nombre_comida']) && isset($
     $sql2 = "UPDATE `apartados_dona_magui`.`apartados` SET `estado` = '$estado' WHERE `id_apartado` = '$idApartado';";
     $result2 = mysqli_query($conn, $sql2);
 
-    if ($result == true) {
+    if ($result2 == true) {
         if ($estado == "Cancelado") {
             echo "Apartado cancelado";
         }

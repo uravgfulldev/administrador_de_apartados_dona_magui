@@ -49,11 +49,17 @@ export function registrarApartado(nombreComida, hora, paraLlevar) {
     }
 }
 
-export function cancelarApartado() {
-    var nombreCliente = "Luis Gonzalo Cervantes Rivera";
-    var nombreComida = "Carne en su jugo";
+/**
+ * Función que se encarga de cambiar el estado de un pedido ha "Cancelado".
+ * 
+ * @param {string} nombreCliente nombre del cliente que realizó el apartado
+ * @param {string} nombreComida nombre de la comida que el cliente apartó
+ */
+export function cancelarApartado(nombreCliente, nombreComida) {
     var estado = "Cancelado";
 
+    //Preparamos una petición con el método POST para enviar el nombre del cliente,
+    //de la comida y el nuevo estado del pedido al archivo editData.php
     xhttp = new XMLHttpRequest();
     xhttp.open("POST", "bdOperations\\php\\editData.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -61,8 +67,9 @@ export function cancelarApartado() {
 
     xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
+            //Una vez realizado todo se le hace saber al usuario que el pedido ha sido cancelado
             alert(this.responseText);
-            //TODO: editar celda de estado
+            mostrarTablaApartados();
         }
     }
 }
@@ -71,11 +78,17 @@ export function filtrarApartados() {
     //TODO: everything
 }
 
-export function entregarApartado() {
-    var nombreCliente = "Luis Gonzalo Cervantes Rivera"; //document.getElementById("").value;
-    var nombreComida = "Carne en su jugo"; //document.getElementById("").value;
+/**
+ * Función que se encarga de cambiar el estado de un pedido ha "Entregado".
+ * 
+ * @param {string} nombreCliente nombre del cliente que realizó el apartado
+ * @param {string} nombreComida nombre de la comida que el cliente apartó
+ */
+export function entregarApartado(nombreCliente, nombreComida) {
     var estado = "Entregado";
 
+    //Preparamos una petición con el método POST para enviar el nombre del cliente,
+    //de la comida y el nuevo estado del pedido al archivo editData.php
     xhttp = new XMLHttpRequest();
     xhttp.open("POST", "bdOperations\\php\\editData.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -83,8 +96,9 @@ export function entregarApartado() {
 
     xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
+            //Una vez realizado todo se le hace saber al usuario que el pedido ha sido entregado
             alert(this.responseText);
-            //TODO: editar celda de estado
+            mostrarTablaApartados();
         }
     }
 }
@@ -185,4 +199,8 @@ function registrarPlatillo(nombreComida, hora, paraLlevar) {
     }
 
     return idPlatillo
+}
+
+function mostrarTablaApartados() {
+    //TODO: everything
 }

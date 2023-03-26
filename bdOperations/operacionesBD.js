@@ -74,8 +74,29 @@ export function cancelarApartado(nombreCliente, nombreComida) {
     }
 }
 
-export function filtrarApartados() {
-    //TODO: everything
+/**
+ * Función que se encarga de filtrar los apartados de la base de datos a partir
+ * del nombre del cliente proporcionado
+ * 
+ * @param {string} nombreCliente nombre del cliente para filtrar
+ */
+export function filtrarApartados(nombreCliente) {
+    //Creamos una nueva petición con el método GET y enviamos el nombre
+    //del cliente como parámetros al archivo getData.php
+    xhttp = new XMLHttpRequest();
+    xhttp.open("GET", "bdOperations\\php\\getData.php", true);
+    xhttp.send("nombre_completo=" + nombreCliente);
+
+    xhttp.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
+            //obtenemos los datos y los convertimos al tipo JSON
+            var data = JSON.parse(this.responseText);
+            console.log(data);
+
+            //y los mandamos a esta función para recargar la tabla
+            mostrarTablaApartados(data);
+        }
+    }
 }
 
 /**
@@ -98,15 +119,15 @@ export function entregarApartado(nombreCliente, nombreComida) {
         if (this.readyState === 4 && this.status === 200) {
             //Una vez realizado todo se le hace saber al usuario que el pedido ha sido entregado
             alert(this.responseText);
-            mostrarTablaApartados();
+            obtenerApartados();
         }
     }
 }
 
 export function obtenerApartados() {
-    const hoy = new Date();
-    var hoyFormato = formatoFecha(hoy, 'yyyy-mm-dd');
-    console.log(hoyFormato);
+    //const hoy = new Date();
+    //var hoyFormato = formatoFecha(hoy, 'yyyy-mm-dd');
+    //console.log(hoyFormato);
 
     xhttp = new XMLHttpRequest();
     xhttp.open("GET", "bdOperations\\php\\getData.php", true)
@@ -117,14 +138,7 @@ export function obtenerApartados() {
             var data = JSON.parse(this.responseText);
             console.log(data);
 
-            var columnasTabla = "";
-
-            for (let i = 0; i < data.length; i++) {
-                //TODO: get variables
-            }
-
-            //TODO: poner id de tabla
-            document.getElementById("").innerHTML = columnasTabla;
+            mostrarTablaApartados(data);
         }
     }
 }
@@ -201,6 +215,10 @@ function registrarPlatillo(nombreComida, hora, paraLlevar) {
     return idPlatillo
 }
 
-function mostrarTablaApartados() {
+/**
+ * 
+ * @param {*} apartados 
+ */
+function mostrarTablaApartados(apartados) {
     //TODO: everything
 }

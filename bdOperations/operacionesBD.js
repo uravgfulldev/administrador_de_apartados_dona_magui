@@ -1,9 +1,10 @@
-import { User, Comida, Platillo, Apartado } from "./objetosDominio.js";
+import { User } from "./objetosDominio.js";
 
 var xhttp;
 var usuario = new User("LGCR", "Luis Gonzalo Cervantes Rivera", "luis.cervantes228549@potros.itson.edu.mx", "LGCR1234");
 //var comida; = new Comida(2, "Carne en su jugo", "assets\\images\\Comidas\\carneEnSuJugo.jpg", "Lunes", 1, "Carne en su jugo", 75.0, 19);
 //var platillo; = new Platillo(2, comida, "2023-03-20 16:00:00", true);
+var encabezados = ["Seleccionar", "Cliente", "Dia", "Hora", "Para llevar", "Estado"];
 
 /**
  * Función que se encarga de registrar el apartado del cliente en la base
@@ -56,6 +57,10 @@ export function registrarApartado(nombreComida, hora, paraLlevar) {
  * @param {string} nombreComida nombre de la comida que el cliente apartó
  */
 export function cancelarApartado(nombreCliente, nombreComida) {
+    if (!confirm("¿Estás seguro de cancelar este apartado?")) {
+        return;
+    }
+
     var estado = "Cancelado";
 
     //Preparamos una petición con el método POST para enviar el nombre del cliente,
@@ -69,7 +74,8 @@ export function cancelarApartado(nombreCliente, nombreComida) {
         if (this.readyState === 4 && this.status === 200) {
             //Una vez realizado todo se le hace saber al usuario que el pedido ha sido cancelado
             alert(this.responseText);
-            mostrarTablaApartados();
+            borraHijos("#");
+            mostrarTablaApartados("#", encabezados, data);
         }
     }
 }
@@ -93,8 +99,11 @@ export function filtrarApartados(nombreCliente) {
             var data = JSON.parse(this.responseText);
             console.log(data);
 
+            
+            borraHijos("#");
+
             //y los mandamos a esta función para recargar la tabla
-            mostrarTablaApartados(data);
+            mostrarTablaApartados("#", encabezados, data);
         }
     }
 }
@@ -106,6 +115,10 @@ export function filtrarApartados(nombreCliente) {
  * @param {string} nombreComida nombre de la comida que el cliente apartó
  */
 export function entregarApartado(nombreCliente, nombreComida) {
+    if (!confirm("¿Estás seguro de entregar este apartado?")) {
+        return;
+    }
+
     var estado = "Entregado";
 
     //Preparamos una petición con el método POST para enviar el nombre del cliente,
@@ -119,7 +132,8 @@ export function entregarApartado(nombreCliente, nombreComida) {
         if (this.readyState === 4 && this.status === 200) {
             //Una vez realizado todo se le hace saber al usuario que el pedido ha sido entregado
             alert(this.responseText);
-            obtenerApartados();
+            borraHijos("#");
+            mostrarTablaApartados("#", encabezados, data);
         }
     }
 }
@@ -137,8 +151,9 @@ export function obtenerApartados() {
         if (this.readyState === 4 && this.status === 200) {
             var data = JSON.parse(this.responseText);
             console.log(data);
-
-            mostrarTablaApartados(data);
+            
+            borraHijos("#");
+            mostrarTablaApartados("#", encabezados, data);
         }
     }
 }
@@ -216,9 +231,58 @@ function registrarPlatillo(nombreComida, hora, paraLlevar) {
 }
 
 /**
+ * Función para crear la tabla de apartados dado un elemento padre del front,
+ * un arreglo de encabezados y otro de los apartados.
  * 
- * @param {*} apartados 
+ * @param {string} padreID elemento HTML donde se verá la tabla, lo más seguro es
+ * que sea un div
+ * @param {*} encabezados encabezados de la tabla
+ * @param {*} apartados apartados con los que se llenará la tabla
  */
-function mostrarTablaApartados(apartados) {
-    //TODO: everything
+function mostrarTablaApartados(padreID, encabezados, apartados) {
+    let padre = document.getElementById(padreID);
+
+    let tabla = document.createElement("table");
+    tabla.setAttribute(); //añadir clase o id para dar estilo
+
+    padre.appendChild(tabla);
+
+    let renglonEncabezados = document.createElement("tr");
+    tabla.appendChild(renglonEncabezados);
+
+    for (let encabezado of encabezados) {
+        let celdaEncabezado = document.createElement("th");
+        celdaEncabezado.innerHTML = encabezado;
+        renglonEncabezados.appendChild(celdaEncabezado);
+    }
+
+    for (let apartado of apartados) {
+        let renglon = document.createElement("tr");
+        tabla.appendChild(renglon);
+
+        let celdaRadio = document.createElement("td");
+        let radioButton = document.createElement("input");
+        radioButton.type = "radio";
+        celdaRadio.appendChild(radioButton);
+
+        for (let llave in apartado) {
+            let celda = document.createElement("td");
+            celda.innerHTML = apartado[llave];
+            renglon.appendChild(celda);
+        }
+    }
+}
+
+/**
+ * Función para borrar los hijos de un elemento HTML. Solo se usará
+ * para borrar la tabla de apartados.
+ * 
+ * @param {string} elementoID elemento HTML con hijos a borrar.
+ */
+function borraHijos(elementoID) {
+    let elemento = document.getElementById(elementoID);
+
+    while (elemento.hasChildNodes()) {
+        elemento.removeChild(elemento.firstChild);
+    }
 }

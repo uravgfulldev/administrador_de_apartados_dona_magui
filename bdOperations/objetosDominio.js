@@ -45,173 +45,173 @@ export class User {
     }
 }
 
-export class Comida {
+// export class Comida {
 
-    #id;
-    #nombre;
-    #img;
-    #dia;
-    #menu;
-    #precio;
-    #stock;
+//     #id;
+//     #nombre;
+//     #img;
+//     #dia;
+//     #menu;
+//     #precio;
+//     #stock;
 
-    constructor(id, nombre, img, dia, menu, precio, stock) {
-        this.#id = id;
-        this.#nombre = nombre;
-        this.#img = img;
-        this.#dia = dia;
-        this.#menu = menu;
-        this.#precio = precio;
-        this.#stock = stock;
-    }
+//     constructor(id, nombre, img, dia, menu, precio, stock) {
+//         this.#id = id;
+//         this.#nombre = nombre;
+//         this.#img = img;
+//         this.#dia = dia;
+//         this.#menu = menu;
+//         this.#precio = precio;
+//         this.#stock = stock;
+//     }
 
-    getId() {
-        return this.#id;
-    }
+//     getId() {
+//         return this.#id;
+//     }
 
-    setId(id) {
-        this.#id = id;
-    }
+//     setId(id) {
+//         this.#id = id;
+//     }
 
-    getNombre() {
-        return this.#nombre;
-    }
+//     getNombre() {
+//         return this.#nombre;
+//     }
 
-    setNombre(nombre) {
-        this.#nombre = nombre;
-    }
+//     setNombre(nombre) {
+//         this.#nombre = nombre;
+//     }
 
-    getImg() {
-        return this.#img;
-    }
+//     getImg() {
+//         return this.#img;
+//     }
 
-    setImg(img) {
-        this.#img = img;
-    }
+//     setImg(img) {
+//         this.#img = img;
+//     }
 
-    getDia() {
-        return this.#dia;
-    }
+//     getDia() {
+//         return this.#dia;
+//     }
 
-    setDia(dia) {
-        this.#dia = dia;
-    }
+//     setDia(dia) {
+//         this.#dia = dia;
+//     }
 
-    getMenu() {
-        return this.#menu;
-    }
+//     getMenu() {
+//         return this.#menu;
+//     }
 
-    setMenu(menu) {
-        this.#menu = menu;
-    }
+//     setMenu(menu) {
+//         this.#menu = menu;
+//     }
 
-    getPrecio() {
-        return this.#precio;
-    }
+//     getPrecio() {
+//         return this.#precio;
+//     }
 
-    setPrecio() {
-        this.#precio = precio;
-    }
+//     setPrecio() {
+//         this.#precio = precio;
+//     }
 
-    getStock() {
-        return this.#stock;
-    }
+//     getStock() {
+//         return this.#stock;
+//     }
 
-    setStock(stock) {
-        this.#stock = stock;
-    }
-}
+//     setStock(stock) {
+//         this.#stock = stock;
+//     }
+// }
 
-export class Platillo {
+// export class Platillo {
 
-    #id
-    #comida;
-    #hora;
-    #paraLlevar;
+//     #id
+//     #comida;
+//     #hora;
+//     #paraLlevar;
 
-    constructor(id, comida, hora, paraLlevar) {
-        this.#id = id;
-        this.comida = comida;
-        this.hora = hora;
-        this.paraLlevar = paraLlevar;
-    }
+//     constructor(id, comida, hora, paraLlevar) {
+//         this.#id = id;
+//         this.comida = comida;
+//         this.hora = hora;
+//         this.paraLlevar = paraLlevar;
+//     }
 
-    getId() {
-        return this.#id;
-    }
+//     getId() {
+//         return this.#id;
+//     }
 
-    setId(id) {
-        this.#id = id;
-    }
+//     setId(id) {
+//         this.#id = id;
+//     }
 
-    getComida() {
-        return this.#comida;
-    }
+//     getComida() {
+//         return this.#comida;
+//     }
 
-    setComida(comida) {
-        this.#comida = comida;
-    }
+//     setComida(comida) {
+//         this.#comida = comida;
+//     }
 
-    getHora() {
-        return this.#hora;
-    }
+//     getHora() {
+//         return this.#hora;
+//     }
 
-    setHora(hora) {
-        this.#hora = hora;
-    }
+//     setHora(hora) {
+//         this.#hora = hora;
+//     }
 
-    isParaLlevar() {
-        return this.#paraLlevar;
-    }
+//     isParaLlevar() {
+//         return this.#paraLlevar;
+//     }
 
-    setParaLlevar(paraLlevar) {
-        this.#paraLlevar = paraLlevar;
-    }
-}
+//     setParaLlevar(paraLlevar) {
+//         this.#paraLlevar = paraLlevar;
+//     }
+// }
 
-export class Apartado {
+// export class Apartado {
 
-    #id
-    #user;
-    #platillo;
-    #estatus;
+//     #id
+//     #user;
+//     #platillo;
+//     #estatus;
 
-    constructor(id, user, platillo, estatus) {
-        this.#id = id;
-        this.#user = user;
-        this.#platillo = platillo;
-        this.#estatus = estatus;
-    }
+//     constructor(id, user, platillo, estatus) {
+//         this.#id = id;
+//         this.#user = user;
+//         this.#platillo = platillo;
+//         this.#estatus = estatus;
+//     }
 
-    getId() {
-        return this.#id;
-    }
+//     getId() {
+//         return this.#id;
+//     }
 
-    setId(id) {
-        this.#id = id;
-    }
+//     setId(id) {
+//         this.#id = id;
+//     }
 
-    getUser() {
-        return this.#user;
-    }
+//     getUser() {
+//         return this.#user;
+//     }
 
-    setUser(user) {
-        this.#user = user;
-    }
+//     setUser(user) {
+//         this.#user = user;
+//     }
 
-    getPlatillo() {
-        return this.#platillo;
-    }
+//     getPlatillo() {
+//         return this.#platillo;
+//     }
 
-    setPlatillo(platillo) {
-        this.#platillo = platillo;
-    }
+//     setPlatillo(platillo) {
+//         this.#platillo = platillo;
+//     }
 
-    getEstatus() {
-        return this.#estatus;
-    }
+//     getEstatus() {
+//         return this.#estatus;
+//     }
 
-    setEstatus(estatus) {
-        this.#estatus = estatus;
-    }
-}
+//     setEstatus(estatus) {
+//         this.#estatus = estatus;
+//     }
+// }

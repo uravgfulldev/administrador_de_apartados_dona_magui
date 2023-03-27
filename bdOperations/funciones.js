@@ -1,10 +1,15 @@
-import { User } from "./objetosDominio.js";
-
 var xhttp;
-var usuario = new User("LGCR", "Luis Gonzalo Cervantes Rivera", "luis.cervantes228549@potros.itson.edu.mx", "LGCR1234");
+var usuario = {
+    "username": "LGCR",
+    "nombreCompleto": "Luis Gonzalo Cervantes Rivera",
+    "correo": "luis.cervates228549@potros.itson.edu.mx",
+    "password": "LGCR1234"
+};
 //var comida; = new Comida(2, "Carne en su jugo", "assets\\images\\Comidas\\carneEnSuJugo.jpg", "Lunes", 1, "Carne en su jugo", 75.0, 19);
 //var platillo; = new Platillo(2, comida, "2023-03-20 16:00:00", true);
-var encabezados = ["Seleccionar", "Cliente", "Dia", "Hora", "Para llevar", "Estado"];
+var encabezados = ["", "Cliente", "Comida", "Día", "Hora", "Para llevar", "Estado"];
+var stock;
+var idPlatillo;
 
 /**
  * Función que se encarga de registrar el apartado del cliente en la base
@@ -14,9 +19,11 @@ var encabezados = ["Seleccionar", "Cliente", "Dia", "Hora", "Para llevar", "Esta
  * @param {number} hora hora en la que se planea recoger
  * @param {boolean} paraLlevar Si la comida será para llevar o no
  */
-export function registrarApartado(nombreComida, hora, paraLlevar) {
+function registrarApartado(nombreComida, hora, paraLlevar) {
     //primero verificamos si la comida todavía se encuentra disponible
-    if (!verificarDisponibilidad(nombreComida)) {
+    verificarDisponibilidad(nombreComida);
+    
+    if (stock == 0) {
         //en el caso de que no esté disponible se le muestra una alerta al
         //usuario indicandole eso
         alert(nombreComida + "ya no se encuentra disponible");
@@ -32,14 +39,14 @@ export function registrarApartado(nombreComida, hora, paraLlevar) {
 
     //Primero registramos el platillo en la base de datos para poder relacionarlo
     //con el cliente
-    var idPlatillo = registrarPlatillo(nombreComida, hoyHora, paraLlevar);
+    registrarPlatillo(nombreComida, hoyHora, paraLlevar);
 
     //Realizamos el request para enviar los datos al archivo insertData.php el cual
     //se encargará de registrar el apartado en la base de datos
     xhttp = new XMLHttpRequest();
     xhttp.open("POST", "bdOperations\\php\\insertData.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send("id_platillo=" + idPlatillo + "&id_usuario=" + usuario.getUserName());
+    xhttp.send("id_platillo=" + idPlatillo + "&id_usuario=" + usuario.username);
 
     xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
@@ -56,7 +63,7 @@ export function registrarApartado(nombreComida, hora, paraLlevar) {
  * @param {string} nombreCliente nombre del cliente que realizó el apartado
  * @param {string} nombreComida nombre de la comida que el cliente apartó
  */
-export function cancelarApartado(nombreCliente, nombreComida) {
+function cancelarApartado(nombreCliente, nombreComida) {
     if (!confirm("¿Estás seguro de cancelar este apartado?")) {
         return;
     }
@@ -86,11 +93,12 @@ export function cancelarApartado(nombreCliente, nombreComida) {
  * 
  * @param {string} nombreCliente nombre del cliente para filtrar
  */
-export function filtrarApartados(nombreCliente) {
+function filtrarApartados(nombreCliente) {
     //Creamos una nueva petición con el método GET y enviamos el nombre
     //del cliente como parámetros al archivo getData.php
     xhttp = new XMLHttpRequest();
-    xhttp.open("GET", "bdOperations\\php\\getData.php", true);
+    xhttp.open("POST", "bdOperations\\php\\getData.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("nombre_completo=" + nombreCliente);
 
     xhttp.onreadystatechange = function() {
@@ -99,11 +107,10 @@ export function filtrarApartados(nombreCliente) {
             var data = JSON.parse(this.responseText);
             console.log(data);
 
-            
-            borraHijos("#");
+            borraHijos("table_container");
 
             //y los mandamos a esta función para recargar la tabla
-            mostrarTablaApartados("#", encabezados, data);
+            mostrarTablaApartados("table_container", encabezados, data);
         }
     }
 }
@@ -114,7 +121,7 @@ export function filtrarApartados(nombreCliente) {
  * @param {string} nombreCliente nombre del cliente que realizó el apartado
  * @param {string} nombreComida nombre de la comida que el cliente apartó
  */
-export function entregarApartado(nombreCliente, nombreComida) {
+function entregarApartado(nombreCliente, nombreComida) {
     if (!confirm("¿Estás seguro de entregar este apartado?")) {
         return;
     }
@@ -138,13 +145,13 @@ export function entregarApartado(nombreCliente, nombreComida) {
     }
 }
 
-export function obtenerApartados() {
+function obtenerApartados() {
     //const hoy = new Date();
     //var hoyFormato = formatoFecha(hoy, 'yyyy-mm-dd');
     //console.log(hoyFormato);
 
     xhttp = new XMLHttpRequest();
-    xhttp.open("GET", "bdOperations\\php\\getData.php", true)
+    xhttp.open("GET", "bdOperations\\php\\getData.php", true);
     xhttp.send();
 
     xhttp.onreadystatechange = function() {
@@ -152,8 +159,8 @@ export function obtenerApartados() {
             var data = JSON.parse(this.responseText);
             console.log(data);
             
-            borraHijos("#");
-            mostrarTablaApartados("#", encabezados, data);
+            borraHijos("table_container");
+            mostrarTablaApartados("table_container", encabezados, data);
         }
     }
 }
@@ -172,27 +179,25 @@ function formatoFecha(fecha, formato) {
  * Verifica la disponibilidad de una comida del menú.
  * 
  * @param {string} nombreComida nombre de la comida a verificar
- * @returns el total disponible del stock de la comida
  */
 function verificarDisponibilidad(nombreComida) {
     //Creamos un request con el método GET para el archivo getData.php
     //el cual obtendrá el stock de la comida a buscar que está en la base
     //de datos
     xhttp = new XMLHttpRequest();
-    xhttp.open("GET", "bdOperations\\php\\getData.php", true);
+    xhttp.open("POST", "bdOperations\\php\\getData.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("nombre_comida=" + nombreComida);
 
     //testing pendiente para ver si es de esta forma que funciona el return
     //con onreadystatechange xd
-    var stock = xhttp.onreadystatechange = function() {
+    xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
             //enviamos el response a la consola para hacer tests
             console.log(this.responseText);
-            return this.responseText != 0;
+            stock = parseInt(this.responseText);
         }
     }
-
-    return stock;
 }
 
 /**
@@ -213,7 +218,7 @@ function registrarPlatillo(nombreComida, hora, paraLlevar) {
 
     //testing pendiente para ver si es de esta forma que funciona el return
     //con onreadystatechange xd
-    var idPlatillo = xhttp.onreadystatechange = function() {
+    xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
             console.log(this.responseText);
 
@@ -222,12 +227,10 @@ function registrarPlatillo(nombreComida, hora, paraLlevar) {
             if (this.responseText == "Ha ocurrido un error!!!") {
                 alert(this.responseText);
             } else {
-                return parseInt(this.responseText);
+                idPlatillo = parseInt(this.responseText);
             }
         }
     }
-
-    return idPlatillo
 }
 
 /**
@@ -243,7 +246,7 @@ function mostrarTablaApartados(padreID, encabezados, apartados) {
     let padre = document.getElementById(padreID);
 
     let tabla = document.createElement("table");
-    tabla.setAttribute(); //añadir clase o id para dar estilo
+    tabla.setAttribute("id", "apartados"); //añadir clase o id para dar estilo
 
     padre.appendChild(tabla);
 
@@ -263,11 +266,21 @@ function mostrarTablaApartados(padreID, encabezados, apartados) {
         let celdaRadio = document.createElement("td");
         let radioButton = document.createElement("input");
         radioButton.type = "radio";
+        radioButton.name = "selec";
         celdaRadio.appendChild(radioButton);
+        renglon.appendChild(celdaRadio);
 
         for (let llave in apartado) {
             let celda = document.createElement("td");
-            celda.innerHTML = apartado[llave];
+
+            if (llave == "para_llevar" && apartado[llave] == 1) {
+                celda.innerHTML = "Si";
+            } else if (llave == "para_llevar" && apartado[llave] == 0) {
+                celda.innerHTML = "No";
+            } else {
+                celda.innerHTML = apartado[llave];
+            }
+            
             renglon.appendChild(celda);
         }
     }

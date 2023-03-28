@@ -10511,6 +10511,15 @@ p {
   height: 420px;
 }
 
+.search-bar {
+  margin: 5px;
+}
+
+.search-bar div {
+  padding: 0;
+  margin-right: 10px;
+}
+
 .space {
   height: 10vh;
 }/*# sourceMappingURL=main.css.map */

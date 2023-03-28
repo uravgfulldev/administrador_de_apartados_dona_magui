@@ -35,8 +35,8 @@
                 </div>
                 <div class="header-menu">
                    <ul class="nav flex-column" >
-                        <li class="nav-item"><a href="index.html" class="nav-link bg-primary" aria-current="page">Menu</a></li>
-                        <li class="nav-item"><a href="apartados.html" class="nav-link">Apartados</a></li>
+                        <li class="nav-item"><a href="index.html" class="nav-link " aria-current="page">Menu</a></li>
+                        <li class="nav-item"><a href="apartados.html" class="nav-link bg-primary">Apartados</a></li>
                         <li class="btn-login-register nav-item"><button class="btn btn-primary"><p>Cerrar</p><p>session</p></button></li>
                    </ul>
                     
@@ -55,12 +55,15 @@
                         <h1>Pedidos</h1>
                     </div>
                 </div>
-                <div class="d-flex align-items-center">
-                  <div class="search-bar mx-auto">
-                      <button>Buscar</button> 
-                      
+                <div class="d-flex search-bar">
+                    <div class="col-1">
+                      <button id="btn-buscar" class="btn bg-success">Buscar</button> 
+                    </div>
+                    <div class="col-11">
+                      <input type="text" id="campo-buscar"class="form-control" id="inputEmail4" placeholder="Enchiladas">
+                    </div>
                   </div>
-              </div>
+
                 <div class="d-flex">
                   <table id="tabla-apartados" class="table">
                     <thead class="thead-dark">
@@ -102,9 +105,6 @@
                   </table>
                   
                   
-                </div>
-                <div class="d-flex mt-3 flex-row-reverse ">   
-                        <button onclick="obtenerApartados()" class="btn btn-success"><p>Publicar</p></button>
                 </div>
             </div>
           </div>

@@ -5638,11 +5638,12 @@ textarea.form-control-lg {
   right: 0;
   bottom: 0;
   left: 0;
+  top: 600px;
   z-index: 2;
   display: flex;
   justify-content: center;
   padding: 0;
-  margin-right: 15%;
+  margin-right: 37%;
   margin-bottom: 1rem;
   margin-left: 15%;
   list-style: none;
@@ -6705,6 +6706,7 @@ textarea.form-control-lg {
 
 .d-flex {
   display: flex !important;
+  margin-bottom: 15px;
 }
 
 .d-inline-flex {
@@ -10515,6 +10517,15 @@ p {
    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%242424' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E") !important;
  }
 
+ .carousel-control-next{
+  left: 740px;
+  padding: 60px;
+ }
+
+ .carousel-control-prev{
+  padding: 60px;
+ }
+
  .carousel-indicators li{
   background: #000;
   height: 6px;
@@ -10524,6 +10535,7 @@ p {
 /* MARCO MENU DE COMIDAS ***************************/
 .container{
   background-color: fcca5d;
+  width: 95%;
 }
 
 .container-fluid{
@@ -10545,16 +10557,17 @@ p {
 }
 
 .menu-list-row .bydefault_show .dish-box-wp {
-  display: inline-block !important;
+  display: inline-block;
 }
 
 .menu-list-row{
   margin-top: 50px;
-  margin-right: 30px;
+  margin-right: 180px;
+  
 }
 
 .sec-wp {
-  left: 105px;
+  left: 50px;
   position: relative;
   z-index: 4;
 }
@@ -10586,13 +10599,13 @@ p {
 
 .dish-title {
   width: 280px;
-  padding-right: 160px;
+  /* padding-right: 160px; */
   /* padding: 0 20px; */
 }
 
 .h3-title {
-  width: 220px;
-  font-size: 25px;
+  width: 140px;
+  font-size: 22px;
   text-transform: capitalize;
   /* margin-bottom: 5px; */
   /* font-family: 'Playfair Display', serif; */
@@ -10604,10 +10617,13 @@ p {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  margin-top: -8px;
   /* font-weight: 900; */
 }
 
 .diaMenu{
+  margin-top: 15px;
+  width: 780px;
   font-weight: 500;
   text-align: center;
   text-shadow: 5px 3px 10px #000000;
@@ -10672,7 +10688,33 @@ p {
 
 .dist-bottom-row{
   color: #ffffff;
+  
 }
+
+/* MARCO MODAL POP UP MESSAGE PARA AGREGA COMIDA **************************** */
+.modal-title{
+  font-size: 30px;
+}
+
+.form-check-label{
+  font-size: 20px;
+}
+
+#flexSwitchCheckDefault{
+  top: 4px;
+}
+
+.form-select{
+  margin-top: 20px;
+  font-weight: bold !important;
+  color: #fff !important;
+  background: #003fbc !important;
+  text-transform: uppercase;
+}
+
+/* TABLA DE LISTA DE COMIDAS */
+
+
 
 /* @MEDIA */
 @media (max-width: 1199px) {

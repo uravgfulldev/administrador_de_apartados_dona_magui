@@ -1,8 +1,8 @@
 
-  
-function create(){
-  const template= document.createElement("template");
-  html= `
+
+function create() {
+  const template = document.createElement("template");
+  html = `
   <div class="col-lg-4 col-sm-6 dish-box-wp breakfast" data-cat="breakfast">
   <div class="dish-box text-center">
   <div class="dist-img">
@@ -26,8 +26,16 @@ function create(){
   </div>
   </div>'
   `
- template.innerHTML=html.trim();
- const myHtmlElement=template.content.firstElementChild;
+  template.innerHTML = html.trim();
+  const myHtmlElement = template.content.firstElementChild;
 
-document.getElementById("menu-lunes").appendChild(myHtmlElement);
+  document.getElementById("menu-lunes").appendChild(myHtmlElement);
+}
+
+function agregarComida(){
+  $('#modal-agregarPedido').modal('show')
+}
+
+function closeModal(){
+  $('#modal-agregarPedido').modal('hide')
 }

@@ -16,6 +16,13 @@ botonEntregar.addEventListener('click', () => {
     }
 
     var celdas = rows[radioSeleccionado].cells;
+    var estado = celdas[6].innerHTML;
+
+    if (estado == "Cancelado" || estado == "Entregado") {
+        alert("No puede entregar/cancelar un apartado que ya está entregado/cancelado");
+        return;
+    }
+
     var cliente = celdas[1].innerHTML;
     var comida = celdas[2].innerHTML;
     entregarApartado(cliente, comida);
@@ -35,6 +42,14 @@ botonCancelar.addEventListener('click', () => {
     }
 
     var celdas = rows[radioSeleccionado].cells;
+    var estado = celdas[6].innerHTML;
+
+    if (estado == "Cancelado" || estado == "Entregado") {
+        alert("No puede entregar/cancelar un apartado que ya está entregado/cancelado");
+        return;
+    }
+    
+
     var cliente = celdas[1].innerHTML;
     var comida = celdas[2].innerHTML;
     cancelarApartado(cliente, comida);

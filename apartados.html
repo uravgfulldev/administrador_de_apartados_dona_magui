@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="assets/css/jquery.fancybox.min.css">
     <!-- custom css  -->
     <link rel="stylesheet" href="main.css">
-    <script src="assets/BD/operacionesBD.js"></script>
+    <script src="bdOperations/funciones.js"></script>
 </head>
 <body>
     <div class="container-fluid">
@@ -60,67 +60,33 @@
                       <button id="btn-buscar" class="btn">Buscar</button> 
                     </div>
                     <div class="col-9">
-                      <input type="text" id="campo-buscar"class="form-control" id="inputEmail4" placeholder="Enchiladas">
+                      <input type="text" id="campo-buscar"class="form-control" id="inputEmail4" placeholder="Nombre del cliente">
                     </div>
                     <div class="col-1">
                       <button id="btn-entregar" class="btn bg-success">Entregar</button> 
                     </div>
                     <div class="col-1">
-                      <button id="btn-eliminar" class="btn bg-danger">Eliminar</button> 
+                      <button id="btn-cancelar" class="btn bg-danger">Cancelar</button> 
                     </div>
                   </div>
                 <!-- Tabla -->
-                <div class="d-flex">
-                  <table id="tabla-apartados" class="table">
-                    <thead class="thead-dark">
-                      <tr class="table-light">
-                        <th scope="col">Nombre cliente</th>
-                        <th scope="col">Comida</th>
-                        <th scope="col">Dia</th>
-                        <th scope="col">Hora</th>
-                        <th scope="col">¿Para llevar?</th>
-                        <th scope="col">Estado</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr class="table-light">
-                        <th scope="row">Hugo</th>
-                        <td>cochinita</td>
-                        <td>Lunes</td>
-                        <td>2:00pm</td>
-                        <td>Si</td>
-                        <td>Por entregar</td>
-                      </tr>
-                      <tr class="table-light">
-                        <th scope="row">Hugo</th>
-                        <td>cochinita</td>
-                        <td>Lunes</td>
-                        <td>2:00pm</td>
-                        <td>Si</td>
-                        <td>Por entregar</td>
-                      </tr>
-                      <tr class="table-light">
-                        <th scope="row">Hugo</th>
-                        <td>cochinita</td>
-                        <td>Lunes</td>
-                        <td>2:00pm</td>
-                        <td>Si</td>
-                        <td>Por entregar</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                <div id="area-tabla" class="d-flex"></div>
             </div>
           </div>
 
         </div>
       </div>
 
+      <script>
+        obtenerApartados();
+      </script>
+
       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
       <script src="assets/js/jquery-3.5.1.min.js"></script>
       <script src="assets/js/popper.min.js"></script>
-      <script src="assets/js/bootstrap.min.js"></script>     
+      <script src="assets/js/bootstrap.min.js"></script>
+      <script src="bdOperations/app.js"></script>     
 </body>
 </html>

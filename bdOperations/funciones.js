@@ -108,10 +108,10 @@ function filtrarApartados(nombreCliente) {
             var data = JSON.parse(this.responseText);
             console.log(data);
 
-            borraHijos("table_container");
+            borraHijos("area-tabla");
 
             //y los mandamos a esta función para recargar la tabla
-            mostrarTablaApartados("table_container", encabezados, data);
+            mostrarTablaApartados("area-tabla", encabezados, data);
         }
     }
 }
@@ -159,8 +159,8 @@ function obtenerApartados() {
             var data = JSON.parse(this.responseText);
             console.log(data);
             
-            borraHijos("table_container");
-            mostrarTablaApartados("table_container", encabezados, data);
+            borraHijos("area-tabla");
+            mostrarTablaApartados("area-tabla", encabezados, data);
         }
     }
 }
@@ -247,21 +247,29 @@ function mostrarTablaApartados(padreID, encabezados, apartados) {
     let padre = document.getElementById(padreID);
 
     let tabla = document.createElement("table");
-    tabla.setAttribute("id", "apartados"); //añadir clase o id para dar estilo
+    tabla.setAttribute("id", "tabla-apartados");
+    tabla.setAttribute("class", "table");
 
     padre.appendChild(tabla);
 
+    let head = document.createElement("thead");
+    head.setAttribute("class", "thead-dark");
+    tabla.appendChild(head);
+
     let renglonEncabezados = document.createElement("tr");
-    tabla.appendChild(renglonEncabezados);
+    renglonEncabezados.setAttribute("class", "table-light");
+    head.appendChild(renglonEncabezados);
 
     for (let encabezado of encabezados) {
         let celdaEncabezado = document.createElement("th");
+        celdaEncabezado.setAttribute("scope", "col");
         celdaEncabezado.innerHTML = encabezado;
         renglonEncabezados.appendChild(celdaEncabezado);
     }
 
     for (let apartado of apartados) {
         let renglon = document.createElement("tr");
+        renglon.setAttribute("class", "table-light");
         tabla.appendChild(renglon);
 
         let celdaRadio = document.createElement("td");
@@ -274,8 +282,15 @@ function mostrarTablaApartados(padreID, encabezados, apartados) {
         contador++;
 
         for (let llave in apartado) {
-            let celda = document.createElement("td");
+            let celda;
 
+            if (llave == "nombre_completo") {
+                celda = document.createElement("th");
+                celda.setAttribute("scope", "row");
+            } else {
+                celda = document.createElement("td");
+            }
+            
             if (llave == "para_llevar" && apartado[llave] == 1) {
                 celda.innerHTML = "Si";
             } else if (llave == "para_llevar" && apartado[llave] == 0) {
@@ -293,7 +308,7 @@ function mostrarTablaApartados(padreID, encabezados, apartados) {
  * Función para borrar los hijos de un elemento HTML. Solo se usará
  * para borrar la tabla de apartados.
  * 
- * @param {string} elementoID elemento HTML con hijos a borrar.
+ * @param {string} elemento elemento HTML con hijos a borrar.
  */
 function borraHijos(elementoID) {
     let elemento = document.getElementById(elementoID);

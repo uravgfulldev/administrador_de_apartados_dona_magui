@@ -5,9 +5,7 @@ var usuario = {
     "correo": "luis.cervates228549@potros.itson.edu.mx",
     "password": "LGCR1234"
 };
-//var comida; = new Comida(2, "Carne en su jugo", "assets\\images\\Comidas\\carneEnSuJugo.jpg", "Lunes", 1, "Carne en su jugo", 75.0, 19);
-//var platillo; = new Platillo(2, comida, "2023-03-20 16:00:00", true);
-var encabezados = ["", "Cliente", "Comida", "Día", "Hora", "Para llevar", "Estado"];
+var encabezados = ["", "Cliente", "Comida", "Día", "Hora", "¿Para llevar?", "Estado"];
 var stock;
 var idPlatillo;
 
@@ -20,6 +18,10 @@ var idPlatillo;
  * @param {boolean} paraLlevar Si la comida será para llevar o no
  */
 function registrarApartado(nombreComida, hora, paraLlevar) {
+    if (!confirm("¿Estás seguro de apartar esta comida?")) {
+        return;
+    }
+
     //primero verificamos si la comida todavía se encuentra disponible
     verificarDisponibilidad(nombreComida);
     
@@ -81,8 +83,7 @@ function cancelarApartado(nombreCliente, nombreComida) {
         if (this.readyState === 4 && this.status === 200) {
             //Una vez realizado todo se le hace saber al usuario que el pedido ha sido cancelado
             alert(this.responseText);
-            borraHijos("#");
-            mostrarTablaApartados("#", encabezados, data);
+            obtenerApartados();
         }
     }
 }
@@ -139,8 +140,7 @@ function entregarApartado(nombreCliente, nombreComida) {
         if (this.readyState === 4 && this.status === 200) {
             //Una vez realizado todo se le hace saber al usuario que el pedido ha sido entregado
             alert(this.responseText);
-            borraHijos("#");
-            mostrarTablaApartados("#", encabezados, data);
+            obtenerApartados();
         }
     }
 }
@@ -243,6 +243,7 @@ function registrarPlatillo(nombreComida, hora, paraLlevar) {
  * @param {*} apartados apartados con los que se llenará la tabla
  */
 function mostrarTablaApartados(padreID, encabezados, apartados) {
+    var contador = 1;
     let padre = document.getElementById(padreID);
 
     let tabla = document.createElement("table");
@@ -267,8 +268,10 @@ function mostrarTablaApartados(padreID, encabezados, apartados) {
         let radioButton = document.createElement("input");
         radioButton.type = "radio";
         radioButton.name = "selec";
+        radioButton.value = contador;
         celdaRadio.appendChild(radioButton);
         renglon.appendChild(celdaRadio);
+        contador++;
 
         for (let llave in apartado) {
             let celda = document.createElement("td");

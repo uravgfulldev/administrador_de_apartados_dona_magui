@@ -25,6 +25,7 @@
             <!-- Header/logo/navbar -->
           <div class="col-md-2 col-lg-2 col-xl-2">
             <header class="header">
+              <!-- Logo -->
                 <div class="header-logo">
                     <div class="img-logo">
                         <a href="index.html">
@@ -33,17 +34,14 @@
                     </div>
                     
                 </div>
+                <!-- navbar -->
                 <div class="header-menu">
                    <ul class="nav flex-column" >
                         <li class="nav-item"><a href="index.html" class="nav-link " aria-current="page">Menu</a></li>
                         <li class="nav-item"><a href="apartados.html" class="nav-link bg-primary">Apartados</a></li>
                         <li class="btn-login-register nav-item"><button class="btn btn-primary"><p>Cerrar</p><p>session</p></button></li>
-                   </ul>
-                    
-                </div>   
-               
-                
-                   
+                   </ul> 
+                </div>     
             </header>
             
           </div>
@@ -51,19 +49,27 @@
           <div class="contenido col-md-9 col-lg-10 col-xl-10">
             <div class="container contenido"> 
                 <div class="d-flex align-items-center">
+                  <!-- Titulo -->
                     <div class="text-center mx-auto">
                         <h1>Pedidos</h1>
                     </div>
                 </div>
+                <!-- Barra de busqueda -->
                 <div class="d-flex search-bar">
                     <div class="col-1">
-                      <button id="btn-buscar" class="btn bg-success">Buscar</button> 
+                      <button id="btn-buscar" class="btn">Buscar</button> 
                     </div>
-                    <div class="col-11">
+                    <div class="col-9">
                       <input type="text" id="campo-buscar"class="form-control" id="inputEmail4" placeholder="Enchiladas">
                     </div>
+                    <div class="col-1">
+                      <button id="btn-entregar" class="btn bg-success">Entregar</button> 
+                    </div>
+                    <div class="col-1">
+                      <button id="btn-eliminar" class="btn bg-danger">Eliminar</button> 
+                    </div>
                   </div>
-
+                <!-- Tabla -->
                 <div class="d-flex">
                   <table id="tabla-apartados" class="table">
                     <thead class="thead-dark">
@@ -103,8 +109,6 @@
                       </tr>
                     </tbody>
                   </table>
-                  
-                  
                 </div>
             </div>
           </div>

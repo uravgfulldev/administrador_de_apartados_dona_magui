@@ -2,23 +2,27 @@
 
 $conn = mysqli_connect("localhost", "root", "Luisgon10$", "apartados_dona_magui");
 
-if (isset($_POST['nombre_comida']) && isset($_POST['hora']) && isset($_POST['para_llevar'])) {
+if (isset($_POST['nombre_comida']) && isset($_POST['hora']) && isset($_POST['para_llevar']) && isset($_POST['stock'])) {
     $nombreComida = $_POST['nombre_comida'];
     $hora = $_POST['hora'];
     $paraLlevar = $_POST['para_llevar'];
-    $idUsuario = $_POST['id_usuario'];
+    $stock = $_POST['stock'];
 
-    $sql = "SELECT `comidas`.`id_comida`, `comidas`.`stock` FROM `apartados_dona_magui`.`comidas`; WHERE `comidas`.`nombre`;";
-    $result = mysqli_query($conn, $result);
+    $sql = "SELECT `comidas`.`id_comida` FROM `apartados_dona_magui`.`comidas` WHERE `comidas`.`nombre` = '$nombreComida';";
+    $result = mysqli_query($conn, $sql);
 
     $idComida = mysqli_fetch_column($result, 0);
-    $stock = mysqli_fetch_column($result, 1);
 
-    $stock -= 1;
     $sql2 = "UPDATE `apartados_dona_magui`.`comidas` SET `stock` = '$stock' WHERE `id_comida` = '$idComida';";
     $result2 = mysqli_query($conn, $sql2);
 
-    if ($result2 == false) {
+    if ($result2 == true) {
+        if ($paraLlevar == true) {
+            $paraLlevar = 1;
+        } else {
+            $paraLlevar = 0;
+        }
+        
         $sql3 = "INSERT INTO `apartados_dona_magui`.`platillos` (`id_comida`, `hora`, `para_llevar`) VALUES ('$idComida', '$hora', '$paraLlevar');";
         $result3 = mysqli_query($conn, $sql3);
 
@@ -29,14 +33,12 @@ if (isset($_POST['nombre_comida']) && isset($_POST['hora']) && isset($_POST['par
     
             $result4 = mysqli_query($conn, $sql4);
 
-            $idPlatillo = mysqli_fetch_column($result4);
+            $idPlatillo = mysqli_fetch_column($result4, 0);
 
             echo $idPlatillo;
         } else {
-            echo "Ha ocurrido un error!!!";
+            echo "No se registro el platillo";
         }
-    } else {
-        echo "Ha ocurrido un error!!";
     }
 }
 

@@ -57,6 +57,12 @@ botonCancelar.addEventListener('click', () => {
 
 botonBuscar.addEventListener('click', () => {
     var cliente = document.getElementById("campo-buscar").value;
+
+    if (cliente === "") {
+        obtenerApartados();
+        return;
+    }
+
     var clienteN = cliente.trim();
     filtrarApartados(clienteN);
 });

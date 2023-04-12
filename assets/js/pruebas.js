@@ -32,8 +32,10 @@ function create() {
   document.getElementById("menu-lunes").appendChild(myHtmlElement);
 }
 
-function agregarComida(){
+function agregarComida(comida){
   $('#modal-agregarPedido').modal('show')
+  var btnGuardar = document.getElementById("guardarApartado")
+  btnGuardar.value = comida
 }
 
 function closeModal(){

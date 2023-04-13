@@ -31,4 +31,5 @@ btnGuardarApartado.addEventListener('click', () => {
     }
 
     registrarApartado(comida, hora, checkBox.checked);
+    closeModal();
 });

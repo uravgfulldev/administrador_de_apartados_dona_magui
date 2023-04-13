@@ -32,12 +32,14 @@ function create() {
   document.getElementById("menu-lunes").appendChild(myHtmlElement);
 }
 
-function agregarComida(comida){
-  $('#modal-agregarPedido').modal('show')
-  var btnGuardar = document.getElementById("guardarApartado")
-  btnGuardar.value = comida
+function agregarComida(comida, obj) {
+  $('#modal-agregarPedido').modal('show');
+
+  var btnGuardar = document.getElementById("guardarApartado");
+  btnGuardar.value = comida;
+  obj.removeAttribute("onclick");
 }
 
-function closeModal(){
-  $('#modal-agregarPedido').modal('hide')
+function closeModal() {
+  $('#modal-agregarPedido').modal('hide');
 }

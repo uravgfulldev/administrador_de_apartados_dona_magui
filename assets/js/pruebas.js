@@ -37,7 +37,6 @@ function agregarComida(comida, obj) {
 
   var btnGuardar = document.getElementById("guardarApartado");
   btnGuardar.value = comida;
-  obj.removeAttribute("onclick");
 }
 
 function closeModal() {

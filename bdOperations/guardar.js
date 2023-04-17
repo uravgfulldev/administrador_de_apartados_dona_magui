@@ -5,6 +5,7 @@ btnGuardarApartado.addEventListener('click', () => {
     var checkBox = document.getElementById("flexSwitchCheckDefault");
     var horaSeleccionada = parseInt(document.getElementById("horaApartado").value);
     var hora;
+    var paraLlevar;
 
     switch (horaSeleccionada) {
         case 1:
@@ -30,6 +31,12 @@ btnGuardarApartado.addEventListener('click', () => {
             break;
     }
 
-    registrarApartado(comida, hora, checkBox.checked);
+    if (checkBox.checked) {
+        paraLlevar = 1;
+    } else {
+        paraLlevar = 0;
+    }
+
+    registrarApartado(comida, hora, paraLlevar);
     closeModal();
 });

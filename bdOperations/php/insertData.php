@@ -17,12 +17,6 @@ if (isset($_POST['nombre_comida']) && isset($_POST['hora']) && isset($_POST['par
     $result2 = mysqli_query($conn, $sql2);
 
     if ($result2 == true) {
-        if ($paraLlevar == true) {
-            $paraLlevar = 1;
-        } else {
-            $paraLlevar = 0;
-        }
-        
         $sql3 = "INSERT INTO `apartados_dona_magui`.`platillos` (`id_comida`, `hora`, `para_llevar`) VALUES ('$idComida', '$hora', '$paraLlevar');";
         $result3 = mysqli_query($conn, $sql3);
 

@@ -1,6 +1,6 @@
 var xhttp;
 var usuario = {
-    "username": "LGCR",
+    "username": "MVLC",
     "nombreCompleto": "Luis Gonzalo Cervantes Rivera",
     "correo": "luis.cervates228549@potros.itson.edu.mx",
     "password": "LGCR1234"
@@ -16,7 +16,6 @@ var encabezados = ["", "Cliente", "Comida", "Día", "Hora", "¿Para llevar?", "E
  * @param {boolean} paraLlevar Si la comida será para llevar o no
  */
 function registrarApartado(nombreComida, hora, paraLlevar) {
-
     if (!confirm("¿Estás seguro de apartar esta comida?")) {
         return;
     }

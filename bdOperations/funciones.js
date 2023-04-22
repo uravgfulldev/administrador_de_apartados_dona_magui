@@ -1,6 +1,6 @@
 var xhttp;
 var usuario = {
-    "username": "MVLC",
+    "username": "HGH",
     "nombreCompleto": "Luis Gonzalo Cervantes Rivera",
     "correo": "luis.cervates228549@potros.itson.edu.mx",
     "password": "LGCR1234"

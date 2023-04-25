@@ -293,3 +293,27 @@ function borraHijos(elementoID) {
         elemento.removeChild(elemento.firstChild);
     }
 }
+
+/**
+ * 
+ * @param {string} username 
+ * @param {string} nombreCompleto 
+ * @param {string} correo 
+ * @param {string} password 
+ */
+function registrarUsuario(username, nombreCompleto, correo, password) {
+    xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "bdOperations\\php\\getData.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("username=" + username + "&nombre_completo=" + nombreCompleto + "&correo=" + correo + "&password=" + password);
+
+    xhttp.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
+            alert(this.responseText);
+        }
+    }
+}
+
+function logIn(username, password) {
+    
+}

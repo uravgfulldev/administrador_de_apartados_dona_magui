@@ -1,10 +1,4 @@
 var xhttp;
-var usuario = {
-    "username": "HGH",
-    "nombreCompleto": "Luis Gonzalo Cervantes Rivera",
-    "correo": "luis.cervates228549@potros.itson.edu.mx",
-    "password": "LGCR1234"
-};
 var encabezados = ["", "Cliente", "Comida", "Día", "Hora", "¿Para llevar?", "Estado"];
 
 /**
@@ -14,6 +8,7 @@ var encabezados = ["", "Cliente", "Comida", "Día", "Hora", "¿Para llevar?", "E
  * @param {string} nombreComida nombre de la comida a apartar
  * @param {string} hora hora en la que se planea recoger
  * @param {boolean} paraLlevar Si la comida será para llevar o no
+ * @param {string} username Nombre del usuario
  */
 function registrarApartado(nombreComida, hora, paraLlevar) {
     if (!confirm("¿Estás seguro de apartar esta comida?")) {
@@ -29,8 +24,6 @@ function registrarApartado(nombreComida, hora, paraLlevar) {
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("nombre_comida=" + nombreComida);
 
-    //testing pendiente para ver si es de esta forma que funciona el return
-    //con onreadystatechange xd
     xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
             //enviamos el response a la consola para hacer tests
@@ -71,13 +64,16 @@ function registrarApartado(nombreComida, hora, paraLlevar) {
                         alert(this.responseText);
                     } else {
                         var idPlatillo = parseInt(this.responseText);
+                        var fullCookie = document.cookie.split("=");
+                        var usuario = fullCookie[2];
+                        console.log(usuario);
 
                         //Realizamos el request para enviar los datos al archivo insertData.php el cual
                         //se encargará de registrar el apartado en la base de datos
                         xhttp = new XMLHttpRequest();
                         xhttp.open("POST", "bdOperations\\php\\insertData.php", true);
                         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                        xhttp.send("id_platillo=" + idPlatillo + "&id_usuario=" + usuario.username);
+                        xhttp.send("id_platillo=" + idPlatillo + "&nombre_completo=" + usuario);
 
                         xhttp.onreadystatechange = function() {
                             if (this.readyState === 4 && this.status === 200) {
@@ -300,20 +296,46 @@ function borraHijos(elementoID) {
  * @param {string} nombreCompleto 
  * @param {string} correo 
  * @param {string} password 
+ * @param {string} telefono
  */
-function registrarUsuario(username, nombreCompleto, correo, password) {
+function registrarUsuario(username, nombreCompleto, correo, password, telefono) {
     xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "bdOperations\\php\\getData.php", true);
+    xhttp.open("POST", "bdOperations\\php\\insertData.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send("username=" + username + "&nombre_completo=" + nombreCompleto + "&correo=" + correo + "&password=" + password);
+    xhttp.send("username=" + username + "&nombre_completo=" + nombreCompleto + "&correo=" + correo + "&password=" + password + "&telefono=" + telefono);
 
     xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
-            alert(this.responseText);
+            if (this.responseText === "Usuario registrado existosamente") {
+                alert(this.responseText);
+                window.location.replace("cliente.html");
+                document.cookie = "nombreCompleto=" + nombreCompleto;
+            } else {
+                alert("Hubo un problema al registrar su usuario");
+            }
         }
     }
 }
 
-function logIn(username, password) {
-    
+/**
+ * 
+ * @param {string} correo 
+ * @param {string} password 
+ */
+function logIn(correo, password) {
+    xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "bdOperations\\php\\getData.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("correo=" + correo + "&password=" + password);
+
+    xhttp.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
+            if (this.responseText === "Doña Magui") {
+                window.location.replace("admin.html");
+            } else {
+                window.location.replace("cliente.html");
+                document.cookie = "nombreCompleto=" + this.responseText;
+            }
+        }
+    }
 }

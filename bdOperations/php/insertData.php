@@ -34,18 +34,43 @@ if (isset($_POST['nombre_comida']) && isset($_POST['hora']) && isset($_POST['par
             echo "No se registro el platillo";
         }
     }
-}
-
-if (isset($_POST['id_platillo']) && isset($_POST['id_usuario'])) {
+} else if (isset($_POST['id_platillo']) && isset($_POST['nombre_completo'])) {
     $idPlatillo = $_POST['id_platillo'];
-    $idUsuario = $_POST['id_usuario'];
+    $nombreCompleto = $_POST['nombre_completo'];
     $estado = "Pendiente";
+
+    $getUsername = "SELECT `users`.`username` FROM `apartados_dona_magui`.`users` WHERE `users`.nombre_completo = '$nombreCompleto';";
+    $result1 = mysqli_query($conn, $getUsername);
+
+    $idUsuario = mysqli_fetch_column($result1, 0);
 
     $sql = "INSERT INTO `apartados_dona_magui`.`apartados` (`id_platillo`, `id_cliente`, `estado`) VALUES ('$idPlatillo', '$idUsuario', '$estado');";
     $result = mysqli_query($conn, $sql);
 
     if ($result == true) {
         echo "Su apartado ha sido registrado!";
+    }
+} else if (isset($_POST['username']) && isset($_POST['nombre_completo']) && isset($_POST['correo']) && isset($_POST['password']) && isset($_POST['telefono'])) {
+    $username = $_POST['username'];
+    $nombreCompleto = $_POST['nombre_completo'];
+    $correo = $_POST['correo'];
+    $password = $_POST['password'];
+    $telefono = $_POST['telefono'];
+
+    if ($telefono == null) {
+        $sql = "INSERT INTO `apartados_dona_magu`.`users` (`username`, `nombre_completo`, `correo`, `password`) VALUES ('$username', '$nombreCompleto', '$correo', '$password');";
+        $result = mysqli_query($conn, $sql);
+
+        if ($result == true) {
+            echo "Usuario registrado existosamente";
+        }
+    } else {
+        $sql = "INSERT INTO `apartados_dona_magu`.`users` (`username`, `nombre_completo`, `correo`, `password`, `telefono`) VALUES ('$username', '$nombreCompleto', '$correo', '$password', '$telefono');";
+        $result = mysqli_query($conn, $sql);
+
+        if ($result == true) {
+            echo "Usuario registrado existosamente";
+        }
     }
 }
 ?>

@@ -37,8 +37,8 @@
                 <!-- navbar -->
                 <div class="header-menu">
                    <ul class="nav flex-column" >
-                        <li class="nav-item"><a href="admin.html" class="nav-link " aria-current="page">Menú</a></li>
-                        <li class="nav-item"><a href="apartados.html" class="nav-link bg-primary">Apartados</a></li>
+                        <li class="nav-item"><a href="cliente.html" class="nav-link " aria-current="page">Menú</a></li>
+                        <li class="nav-item"><a href="apartados-cliente.html" class="nav-link bg-primary">Apartados</a></li>
                         <li class="btn-login-register nav-item"><button class="btn btn-primary"><p>Cerrar</p><p>sesión</p></button></li>
                    </ul> 
                 </div>     
@@ -57,15 +57,6 @@
                 <!-- Barra de busqueda -->
                 <div class="d-flex search-bar">
                     <div class="col-1">
-                      <button id="btn-buscar" class="btn">Buscar</button> 
-                    </div>
-                    <div class="col-9">
-                      <input type="text" id="campo-buscar"class="form-control" id="inputEmail4" placeholder="Nombre del cliente">
-                    </div>
-                    <div class="col-1">
-                      <button id="btn-entregar" class="btn bg-success">Entregar</button> 
-                    </div>
-                    <div class="col-1">
                       <button id="btn-cancelar" class="btn bg-danger">Cancelar</button> 
                     </div>
                   </div>
@@ -78,7 +69,8 @@
       </div>
 
       <script>
-        obtenerApartados();
+        let fullCookie = document.cookie.split("=");
+        filtrarApartados(fullCookie[2]);
       </script>
 
       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

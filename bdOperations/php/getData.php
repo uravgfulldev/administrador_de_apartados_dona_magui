@@ -29,6 +29,16 @@ if (isset($_POST['nombre_comida'])) {
     }
 
     echo json_encode($data);
+} else if (isset($_POST['correo']) && isset($_POST['password'])) {
+    $correo = $_POST['correo'];
+    $password = $_POST['password'];
+
+    $sql = "SELECT `users`.`nombre_completo` FROM `apartados_dona_magui`.`users` WHERE `users`.`correo` = '$correo' AND `users`.`password` = '$password';";
+    $result = mysqli_query($conn, $sql);
+
+    $nombre = mysqli_fetch_column($result);
+
+    echo $nombre;
 } else {
     $sql = "SELECT `u`.`nombre_completo`, `c`.`nombre`, `c`.`dia`, `p`.`hora`, `p`.`para_llevar`, `a`.`estado`
     FROM `apartados_dona_magui`.`apartados` AS a

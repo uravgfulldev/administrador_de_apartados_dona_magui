@@ -76,7 +76,7 @@ main{
     left: 10px;
     transition: left 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-.container_login_register form{
+.container_login_register div{
     width: 100%;
     padding: 80px 20px;
     background: #fff;
@@ -84,19 +84,19 @@ main{
     border-radius: 5px;
 }
 
-.container_login_register form h2{
+.container_login_register div h2{
     font-size: 30px;
     text-align: center;
     margin-bottom: 20px;
 
 }
-.container_login_register form input{
+.container_login_register div input{
     width: 100%;
     margin-top: 20px;
     padding: 10px;
 }
 
-.container_login_register form button{
+.container_login_register div button{
     padding: 10px 40px;
     font-size: 14px;
     font-weight: 600;
@@ -107,7 +107,7 @@ main{
     
 }
 
-.container_login_register form button:hover{
+.container_login_register div button:hover{
     background-color: rgb(229, 130, 110, 0.7);
     color: black;
     border: 1px solid #fff;
@@ -155,7 +155,7 @@ main{
 
     }
 
-    .container_login_register form{
+    .container_login_register div{
         position: relative;
     }
 

@@ -58,14 +58,14 @@ if (isset($_POST['nombre_comida']) && isset($_POST['hora']) && isset($_POST['par
     $telefono = $_POST['telefono'];
 
     if ($telefono == null) {
-        $sql = "INSERT INTO `apartados_dona_magu`.`users` (`username`, `nombre_completo`, `correo`, `password`) VALUES ('$username', '$nombreCompleto', '$correo', '$password');";
+        $sql = "INSERT INTO `apartados_dona_magui`.`users` (`username`, `nombre_completo`, `correo`, `password`) VALUES ('$username', '$nombreCompleto', '$correo', '$password');";
         $result = mysqli_query($conn, $sql);
 
         if ($result == true) {
             echo "Usuario registrado existosamente";
         }
     } else {
-        $sql = "INSERT INTO `apartados_dona_magu`.`users` (`username`, `nombre_completo`, `correo`, `password`, `telefono`) VALUES ('$username', '$nombreCompleto', '$correo', '$password', '$telefono');";
+        $sql = "INSERT INTO `apartados_dona_magui`.`users` (`username`, `nombre_completo`, `correo`, `password`, `telefono`) VALUES ('$username', '$nombreCompleto', '$correo', '$password', '$telefono');";
         $result = mysqli_query($conn, $sql);
 
         if ($result == true) {

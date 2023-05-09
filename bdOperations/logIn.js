@@ -8,7 +8,7 @@ botonRegistrar.addEventListener('click', () => {
    var password = document.getElementById("campo-password").value.trim();
    var telefono = document.getElementById("campo-telefono").value.trim();
 
-    if (nombreCompleto.length === 0 || correo.length === 0 || usuario.length === 0 || password.length === 0) {
+    if (nombreCompleto.length === 0 || correo.length === 0 || username.length === 0 || password.length === 0) {
         alert("Llene los campos vacíos");
         return;
     }

@@ -311,6 +311,7 @@ function registrarUsuario(username, nombreCompleto, correo, password, telefono) 
                 window.location.replace("cliente.html");
                 document.cookie = "nombreCompleto=" + nombreCompleto;
             } else {
+                console.log(this.responseText);
                 alert("Hubo un problema al registrar su usuario");
             }
         }

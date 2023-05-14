@@ -65,7 +65,7 @@ function registrarApartado(nombreComida, hora, paraLlevar) {
                     } else {
                         var idPlatillo = parseInt(this.responseText);
                         var fullCookie = document.cookie.split("=");
-                        var usuario = fullCookie[2];
+                        var usuario = fullCookie[1];
                         console.log(usuario);
 
                         //Realizamos el request para enviar los datos al archivo insertData.php el cual
@@ -113,7 +113,7 @@ function cancelarApartado(nombreCliente, nombreComida) {
         if (this.readyState === 4 && this.status === 200) {
             //Una vez realizado todo se le hace saber al usuario que el pedido ha sido cancelado
             alert(this.responseText);
-            obtenerApartados();
+            window.location.reload();
         }
     }
 }
@@ -170,7 +170,7 @@ function entregarApartado(nombreCliente, nombreComida) {
         if (this.readyState === 4 && this.status === 200) {
             //Una vez realizado todo se le hace saber al usuario que el pedido ha sido entregado
             alert(this.responseText);
-            obtenerApartados();
+            window.location.reload();
         }
     }
 }
@@ -331,12 +331,28 @@ function logIn(correo, password) {
 
     xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
-            if (this.responseText === "Doña Magui") {
-                window.location.replace("admin.html");
+            if (this.responseText.length !== 0 || this.responseText !== null) {
+                if (this.responseText === "Doña Magui") {
+                    window.location.replace("admin.html");
+                    document.cookie = "nombreCompleto=Doña Magui"
+                } else {
+                    window.location.replace("cliente.html");
+                    document.cookie = "nombreCompleto=" + this.responseText;
+                }
             } else {
-                window.location.replace("cliente.html");
-                document.cookie = "nombreCompleto=" + this.responseText;
+                alert("Ese usuario no existe");
             }
         }
+    };
+}
+
+function deleteAllCookies() {
+    const cookies = document.cookie.split(";");
+
+    for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i];
+        const eqPos = cookie.indexOf("=");
+        const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
     }
 }

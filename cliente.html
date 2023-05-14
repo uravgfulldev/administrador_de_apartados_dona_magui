@@ -1131,9 +1131,8 @@
       <script>
         let fullCookie = document.cookie.split("=");
         
-        if (fullCookie[1] === "Doña Magui") {
-          alert("Error al acceder a la página, será enviado de vuelta a la página de inicio");
-          document.cookie = "nombreCompleto=; expires=Thu, 01 Jan 1970 00:00:00 UTC"; // borra la cookie
+        if (fullCookie[1] === "Doña Magui" || fullCookie[1].length === 0) {
+          deleteAllCookies();
           window.location.replace("index.html");
         }
       </script>
